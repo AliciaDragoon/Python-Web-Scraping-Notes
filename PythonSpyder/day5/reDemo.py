@@ -29,3 +29,4 @@ import re
 # for item in result:
 #     print(item.group("name"))  # 根据分组的名字提取具体数据
 
+# re.sub(正则表达式，要替换的内容，要处理的字符串)
