@@ -1,6 +1,8 @@
+# 爬取https://desk.zol.com.cn/pc/上的图片
 import ssl
 import urllib.request
 from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
 ctx.options |= 0x4  # OP_LEGACY_SERVER_CONNECT
@@ -31,4 +33,18 @@ for a in a_list:
     if href.endswith(".exe"):  # 判断字符串href是否以.exe结尾
         continue
     text = a.find("em").text  # 文本
-    print(href, text)
+    # print(href, text)
+    href = urljoin(url, href)  # href并非完整的链接，使用urljoin()拼接链接
+    # print(href, text)
+    child_resp = urllib.request.urlopen(url=href, timeout=10, context=ctx)
+    child_resp_source = child_resp.read().decode('gbk')
+    child_page = BeautifulSoup(child_resp_source, "html.parser")
+    src = child_page.find("img", attrs={"id": "bigImg"}).get("src")  # 可能会取到空值
+    # print(src)
+    img_resp = urllib.request.urlopen(url=src, timeout=10, context=ctx)
+    file_name = src.split("/")[-1]
+    with open(file_name, mode="wb") as f:
+        # 下载图片
+        f.write(img_resp.content)
+    # break  # 测试
+    # 403
