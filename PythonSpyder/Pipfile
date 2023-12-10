@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
+bs4 = "*"
+lxml = "*"
+urllib3 = "*"
 
 [dev-packages]
 
