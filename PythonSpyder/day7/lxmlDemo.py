@@ -34,4 +34,27 @@ page = etree.HTML(content)  # type: etree._Element
 # li3rd = page.xpath("//li[3]/text()")
 # print(li3rd)
 
+# id_10086 = page.xpath("//li[@id= '10086']/text()")  # "@属性": 找特定属性值的键
+# print(id_10086)
 
+# "*": 单个任意标签
+# cla = page.xpath("//*[@class]/text()")
+# print(cla)
+
+# 拿到所有href
+# href1 = page.xpath("//ul/li/a/@href")
+# print(href1)
+
+# href_a_list = page.xpath("//ul/li/a")
+# # print(href_a_list)
+# for a in href_a_list:
+#     # print(a)
+#     href2 = a.xpath("./@href")[0]  # "./": 只在当前节点搜索
+#     text = a.xpath("./text()")[0]
+#     print(f"{text}: {href2}")
+
+# 搜索倒数第一个
+# last = page.xpath("//ol/li[last()]/a/@href")
+# print(last)
+# sTL = page.xpath("//ol/li[last()-1]/a/@href")
+# print(sTL)
