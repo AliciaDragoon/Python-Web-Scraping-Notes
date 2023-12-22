@@ -1,5 +1,6 @@
 import requests
 from lxml import etree
+from concurrent.futures import ThreadPoolExecutor
 
 
 def get_img_url():
@@ -14,9 +15,11 @@ def get_img_url():
         tree = etree.HTML(resp.text)
         img_urls = tree.xpath(
             "//li[@class= 'list-group-item']//img/@data-original")  # 图片存储在data-original中，而不是页面源代码的src中
-        for img_url in img_urls:
-            # print(img_url)
-            download_img(img_url)
+        with ThreadPoolExecutor(16) as t:
+            for img_url in img_urls:
+                # print(img_url)
+                # download_img(img_url)
+                t.submit(download_img, img_url)
 
 
 def download_img(url):
