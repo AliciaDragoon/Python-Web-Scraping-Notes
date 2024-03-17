@@ -8,6 +8,11 @@ requests = "*"
 bs4 = "*"
 lxml = "*"
 urllib3 = "*"
+aiofiles = "*"
+aiohttp = "*"
+multidict = {file = "multidict-6.0.2-py3-none-any.whl"}
+pycryptodome = "*"
+selenium = "*"
 
 [dev-packages]
 
